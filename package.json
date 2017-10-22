@@ -1,0 +1,33 @@
+{
+  "name": "color-picker",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "glamor": "~2.20.40",
+    "glamorous": "~4.10.0",
+    "hex-color-regex": "~1.1.0",
+    "lodash.debounce": "~4.0.8",
+    "normalize.css": "~7.0.0",
+    "polished": "~1.8.1",
+    "react": "^16.0.0",
+    "react-color": "~2.13.8",
+    "react-dom": "^16.0.0",
+    "react-icons": "~2.2.7",
+    "react-portal": "~4.0.0-rc.0",
+    "typeface-bitter": "~0.0.40",
+    "typeface-montserrat": "~0.0.37"
+  },
+  "scripts": {
+    "start": "react-scripts-ts start",
+    "build": "react-scripts-ts build",
+    "test": "react-scripts-ts test --env=jsdom",
+    "eject": "react-scripts-ts eject"
+  },
+  "devDependencies": {
+    "@types/jest": "~21.1.4",
+    "@types/node": "~8.0.46",
+    "@types/react": "~16.0.17",
+    "@types/react-dom": "~16.0.2",
+    "react-scripts-ts": "2.8.0"
+  }
+}
