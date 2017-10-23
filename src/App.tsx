@@ -17,10 +17,10 @@ interface Props {}
 
 function App(props: Props) {
   return (
-    <ColorProvider render={({ actions, color }) => (
+    <ColorProvider render={({ actions, color, unit }) => (
       <Container>
-        <Picker onColorChange={actions.handleColorChange} defaultHex={color}/>
-        <Footer backgroundColor={color}/>
+        <Picker color={color} onColorChange={actions.handleColorChange} />
+        <Footer backgroundColor={color} unit={unit} onUnitChange={actions.handleUnitChange} />
       </Container>
     )}
     />

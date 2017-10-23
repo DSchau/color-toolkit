@@ -22,11 +22,11 @@ const PickerContainer = glamorous.div({
 import { ColorPicker, Input } from '../';
 
 interface Props {
-  defaultHex: string;
+  color: string;
   onColorChange(color: string): void;
 }
 interface State {
-  hex: string;
+  color: string;
 }
 
 export class Picker extends React.Component<Props, State> {
@@ -34,16 +34,22 @@ export class Picker extends React.Component<Props, State> {
     super(props);
 
     this.state = {
-      hex: props.defaultHex
+      color: props.color
     }
   }
 
+  componentWillReceiveProps({ color }: Props) {
+    this.setState({
+      color
+    });
+  }
+
   handleColorChange = (possibleHex: string) => {
-    const hex = possibleHex.charAt(0) !== '#' ? `#${possibleHex}` : possibleHex;
-    if (validHex(hex)) {
+    const color = possibleHex.charAt(0) !== '#' ? `#${possibleHex}` : possibleHex;
+    if (validHex(color)) {
       this.setState({
-        hex
-      }, () => this.props.onColorChange(hex));
+        color
+      }, () => this.props.onColorChange(color));
     }
   }
 
@@ -68,11 +74,11 @@ export class Picker extends React.Component<Props, State> {
     return (
       <ScrollProvider render={({ deltaX = 0, deltaY = 0}) => (
         <Container style={{
-          backgroundColor: this.getBackgroundColor(deltaX, deltaY)(this.state.hex)
+          backgroundColor: this.getBackgroundColor(deltaX, deltaY)(this.state.color)
         }}>
           <PickerContainer>
-            <Input color={this.state.hex} defaultValue={this.props.defaultHex} onColorChange={this.handleColorChange}/>
-            <ColorPicker color={this.state.hex} onChangeComplete={this.handleColorChange} />
+            <Input color={this.state.color} onColorChange={this.handleColorChange}/>
+            <ColorPicker color={this.state.color} onChangeComplete={this.handleColorChange} />
           </PickerContainer>
         </Container>
       )}

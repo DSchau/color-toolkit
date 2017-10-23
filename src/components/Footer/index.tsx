@@ -22,6 +22,7 @@ const Message = glamorous.h3({
   margin: 0,
   padding: 0,
   fontSize: 12,
+  flex: 2,
   textAlign: 'center'
 }, SERIF);
 
@@ -29,8 +30,16 @@ const Link = glamorous.a({
   color: 'inherit'
 });
 
+const ButtonLink = glamorous(Link)({
+  flex: 1,
+  display: 'flex',
+  justifyContent: 'flex-end'
+});
+
 interface Props {
   backgroundColor: string;
+  unit: string;
+  onUnitChange(unit: string): void;
 }
 
 export function Footer(props: Props) {
@@ -41,11 +50,11 @@ export function Footer(props: Props) {
       backgroundColor: color,
       borderTopColor: darken(0.1, color)
     }}>
-      <ColorTypes />
+      <ColorTypes onUnitChange={props.onUnitChange} unit={props.unit} />
       <Message style={{
         color: inverted
       }}>Made with <Code size={16} /> by <Link href="https://dustinschau.com" target="_blank" rel="noopener">Dustin Schau</Link></Message>
-      <Link href="https://github.com/dschau/color-playground" target="_blank" rel="noopener"><Github size={20} color={inverted} /></Link>
+      <ButtonLink href="https://github.com/dschau/color-playground" target="_blank" rel="noopener"><Github size={20} color={inverted} /></ButtonLink>
     </Container>
   );
 }

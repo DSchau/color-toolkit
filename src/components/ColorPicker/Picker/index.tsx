@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Portal } from 'react-portal';
 import glamorous from 'glamorous';
-import { ChromePicker } from 'react-color';
+import { SketchPicker } from 'react-color';
 
 import { FADE_IN, SCALE_IN, Z_INDEX_OVERLAY, Z_INDEX_SUPER } from '../../../style';
 import { ColorChange } from '../interfaces';
@@ -16,12 +16,12 @@ const Container = glamorous.div({
   alignItems: 'center',
   justifyContent: 'center',
   zIndex: Z_INDEX_OVERLAY,
-  animation: `125ms ease-in-out ${FADE_IN}`,
-  // backgroundColor: `rgba(0, 0, 0, 0.5)`
+  animation: `125ms ease-in-out ${FADE_IN}`
 });
 
-const StyledChromePicker = glamorous(ChromePicker)<{
+const StyledSketchPicker = glamorous(SketchPicker)<{
   color: string;
+  disableAlpha: boolean;
   onChangeComplete(color: ColorChange);
 }>({
   animation: `250ms ease-in-out ${SCALE_IN}`,
@@ -40,19 +40,27 @@ interface State {
 
 export class Picker extends React.Component<Props, State> {
   private ESCAPE_KEY = 27;
+  private containerEl: HTMLElement;
   componentDidMount() {
-    document.addEventListener('keypress', this.handleKeypress);
+    document.addEventListener('keyup', this.handleKeyup);
   }
 
   componentWillUnmount() {
-    document.removeEventListener('keypress', this.handleKeypress);
+    this.containerEl = null;
+    document.removeEventListener('keyup', this.handleKeyup);
   }
 
   handleChangeComplete = (color: ColorChange) => {
     this.props.onChangeComplete(color.hex);
   }
 
-  handleKeypress = (ev: KeyboardEvent) => {
+  handleClick = (ev) => {
+    if (this.containerEl === ev.target) {
+      this.props.onClose();
+    }
+  }
+
+  handleKeyup = (ev: KeyboardEvent) => {
     const code = ev.which || ev.keyCode;
     if (code === this.ESCAPE_KEY) {
       this.props.onClose();
@@ -65,8 +73,8 @@ export class Picker extends React.Component<Props, State> {
     }
     return (
       <Portal>
-        <Container onClick={this.props.onClose}>
-          <StyledChromePicker color={this.props.color} onChangeComplete={this.handleChangeComplete} />
+        <Container innerRef={node => this.containerEl = node}onClick={this.handleClick}>
+          <StyledSketchPicker color={this.props.color} disableAlpha={true} onChangeComplete={this.handleChangeComplete} />
         </Container>
       </Portal>
     );

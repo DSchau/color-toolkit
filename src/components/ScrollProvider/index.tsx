@@ -35,16 +35,10 @@ export class ScrollProvider extends React.Component<Props, State> {
   }
 
   handleScroll(ev: MouseWheelEvent) {
-    const { deltaX, deltaY } = this.state;
-    if (!deltaX || !deltaY) {
-      this.setState({
-        deltaX: ev.deltaX,
-        deltaY: ev.deltaY
-      });
-    } else if (deltaX !== ev.deltaX) {
-    } else if (deltaY !== ev.deltaY) {
-
-    }
+    this.setState({
+      deltaX: ev.deltaX,
+      deltaY: ev.deltaY
+    });
   }
 
   render() {

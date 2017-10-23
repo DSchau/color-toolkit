@@ -4,15 +4,18 @@ import glamorous from 'glamorous';
 import { THEME } from '../../style';
 
 const Input = glamorous.input({
+  backgroundColor: `rgba(255, 255, 255, 0.85)`,
   padding: THEME.padding,
   fontSize: THEME.fontSize,
   boxSizing: 'border-box',
-  border: 'none'
+  border: 'none',
+  ':focus': {
+    boxShadow: '0 0 8px white'
+  }
 }).withProps({ type: 'text' });
 
 interface Props {
   color: string;
-  defaultValue: string;
   onColorChange(color: string): void;
 }
 
